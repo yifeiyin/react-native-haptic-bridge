@@ -9,4 +9,15 @@
 #define RCTCalendarModule_h
 
 
+#import <React/RCTBridgeModule.h>
+@interface RCTCalendarModule : NSObject <RCTBridgeModule>
+
+{
+  CHHapticEngine* hapticEngine;
+  NSData* patternData;
+}
+
+
+@end
+
 #endif /* RCTCalendarModule_h */
