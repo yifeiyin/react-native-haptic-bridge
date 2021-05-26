@@ -20,26 +20,23 @@ RCT_EXPORT_MODULE();
 
 RCT_EXPORT_METHOD(createCalendarEvent:(NSString *)patternStr location:(NSString *)location)
 {
-  self->patternData = [patternStr dataUsingEncoding:NSUTF8StringEncoding];
-  
-  // Create an error variable through which the engine returns error information.
   NSError* error = nil;
 
-//  let audioSession = AVAudioSession.sharedInstance()
-//  engine = try CHHapticEngine(audioSession: [AVAudioSession sharedInstance])
+  self->patternData = [patternStr dataUsingEncoding:NSUTF8StringEncoding];
+  if (@available(iOS 13.0, *)) {
+    self->hapticEngine = [[CHHapticEngine alloc] initAndReturnError:&error];
 
+    [self->hapticEngine startAndReturnError:&error];
+
+    [self->hapticEngine playPatternFromData:self->patternData error:&error];
   
-  // (1.) Create an instance of a haptic engine.
-//  self->hapticEngine = [[CHHapticEngine alloc] initWithAudioSession:[AVAudioSession sharedInstance] error:&error];
-  self->hapticEngine = [[CHHapticEngine alloc] initAndReturnError:&error];
+    if (error != NULL) {
+      RCTLogWarn(@"Error: %@", error);
+    }
 
-  // (2.) Start the haptic engine.
-  [self->hapticEngine startAndReturnError:&error];
-
-  [self->hapticEngine playPatternFromData:self->patternData error:&error];
-  
-  RCTLogInfo(@"Error: %@", error);
-
+  } else {
+    RCTLogInfo(@"Haptic engine is not supported");
+  }
 }
 
 @end
