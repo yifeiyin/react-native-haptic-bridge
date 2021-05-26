@@ -1,5 +1,5 @@
 //
-//  RCTCalendarModule.m
+//  RCTHapticModule.m
 //  myapp
 //
 //  Created by Yifei Yin on 2021-05-25.
@@ -10,10 +10,10 @@
 //#import <AVKit/AVKit.h>
 #import <CoreHaptics/CoreHaptics.h>
 
-#import "RCTCalendarModule.h"
+#import "RCTHapticModule.h"
 
 
-@implementation RCTCalendarModule
+@implementation RCTHapticModule
 
 RCT_EXPORT_MODULE();
 
@@ -29,7 +29,7 @@ RCT_EXPORT_METHOD(createCalendarEvent:(NSString *)patternStr location:(NSString 
     [self->hapticEngine startAndReturnError:&error];
 
     [self->hapticEngine playPatternFromData:self->patternData error:&error];
-  
+
     if (error != NULL) {
       RCTLogWarn(@"Error: %@", error);
     }

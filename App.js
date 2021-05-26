@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, NativeModules, Button } from 'react-native';
-const { CalendarModule } = NativeModules;
+const { HapticModule } = NativeModules;
 
 import Boing from './ahap/Boing.json'
 import Drums from './ahap/Drums.json'
@@ -23,7 +23,7 @@ export default function App() {
       <StatusBar style="auto" />
       {
           Object.keys(AHAPS).map(ahap =>
-            <Button key={ahap} title={ahap} onPress={() => CalendarModule.createCalendarEvent(JSON.stringify(AHAPS[ahap]), 'testLocation')} />
+            <Button key={ahap} title={ahap} onPress={() => HapticModule.createCalendarEvent(JSON.stringify(AHAPS[ahap]), 'testLocation')} />
             )
       }
     </View>
